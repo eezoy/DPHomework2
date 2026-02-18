@@ -37,7 +37,7 @@ import java.util.List;
 public interface LootTable {
     List<String> getItems();
     int getGoldDrop();
-    int getExperienceDrop();
+    int getXpDrop();
     String getLootInfo();
     LootTable clone();
 }
