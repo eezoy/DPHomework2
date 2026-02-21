@@ -2,7 +2,7 @@ package com.narxoz.rpg.builder;
 
 import com.narxoz.rpg.combat.Ability;
 import com.narxoz.rpg.enemy.Enemy;
-import com.narxoz.rpg.enemy.Goblin;
+import com.narxoz.rpg.enemy.*;
 import com.narxoz.rpg.factory.EnemyBehavior;
 import com.narxoz.rpg.loot.LootTable;
 

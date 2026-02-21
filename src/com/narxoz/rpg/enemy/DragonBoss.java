@@ -131,6 +131,7 @@ public class DragonBoss implements Enemy {
         return lootTable;
     }
 
+    @Override
     public void displayInfo() {
         System.out.println("=== " + name + " (Dragon Boss) ===");
         System.out.println("Health: " + health + " | Damage: " + damage
@@ -152,4 +153,36 @@ public class DragonBoss implements Enemy {
             System.out.println("Loot: " + lootTable.getLootInfo());
         }
     }
+
+    @Override
+    public Enemy clone() {
+        DragonBoss copy = new DragonBoss(
+            this.name,
+            this.health,
+            this.damage,
+            this.defense,
+            this.speed,
+            null,
+            0, 0, 0,
+            null,
+            this.aiBehavior,
+            this.canFly,
+            this.hasBreathAttack,
+            this.wingspan
+        );
+
+        copy.abilities = new ArrayList<>();
+        for (Ability ability : this.abilities) {
+            copy.abilities.add(ability.clone());
+        }
+
+        copy.phases = new HashMap<>(this.phases);
+
+        if (this.lootTable != null) {
+            copy.lootTable = this.lootTable.clone();
+        }
+
+        return copy;
+    }
+
 }

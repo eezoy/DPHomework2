@@ -24,7 +24,6 @@ public class Orc implements Enemy{
         this.abilities = new ArrayList<>();
     }
 
-    // ============== Getters ==============
     @Override
     public String getName() {
         return name;
@@ -101,4 +100,23 @@ public class Orc implements Enemy{
         }
     }
 
+    @Override
+    public Enemy clone() {
+        Orc copy = new Orc(this.name);
+        copy.health = this.health;
+        copy.damage = this.damage;
+        copy.defense = this.defense;
+        copy.speed = this.speed;
+        copy.abilities = new ArrayList<>();
+
+        for (Ability ability : this.abilities) {
+            copy.abilities.add(ability.clone());
+        }
+        
+        if (this.lootTable != null) {
+            copy.lootTable = this.lootTable.clone();
+        }
+        
+        return copy;
+    }
 }

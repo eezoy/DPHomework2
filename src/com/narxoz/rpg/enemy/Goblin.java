@@ -61,11 +61,9 @@ public class Goblin implements Enemy {
     protected int speed;
     protected List<Ability> abilities;
     protected LootTable lootTable;
-    protected String element;
 
     public Goblin(String name) {
         this.name = name;
-        this.element = "NEUTRAL";
         this.health = 100;
         this.damage = 15;
         this.defense = 5;
@@ -73,7 +71,6 @@ public class Goblin implements Enemy {
         this.abilities = new ArrayList<>();
     }
 
-    // ============== Getters ==============
     @Override
     public String getName() {
         return name;
@@ -116,10 +113,6 @@ public class Goblin implements Enemy {
         return lootTable;
     }
 
-    public void setElement(String element) {
-        this.element = element;
-    }
-
     public void setHealth(int health) {
         this.health = health;
     }
@@ -152,5 +145,25 @@ public class Goblin implements Enemy {
         if (lootTable != null) {
             System.out.println("Loot: " + lootTable.getLootInfo());
         }
+    }
+
+    @Override
+    public Enemy clone() {
+        Goblin copy = new Goblin(this.name);
+        copy.health = this.health;
+        copy.damage = this.damage;
+        copy.defense = this.defense;
+        copy.speed = this.speed;
+        copy.abilities = new ArrayList<>();
+
+        for (Ability ability : this.abilities) {
+            copy.abilities.add(ability.clone());
+        }
+        
+        if (this.lootTable != null) {
+            copy.lootTable = this.lootTable.clone();
+        }
+        
+        return copy;
     }
 }

@@ -14,11 +14,9 @@ public class Skeleton implements Enemy {
     protected int speed;
     protected List<Ability> abilities;
     protected LootTable lootTable;
-    protected String element;
 
     public Skeleton(String name) {
         this.name = name;
-        this.element = "NEUTRAL";
         this.health = 100;
         this.damage = 15;
         this.defense = 5;
@@ -69,10 +67,6 @@ public class Skeleton implements Enemy {
         return lootTable;
     }
 
-    public void setElement(String element) {
-        this.element = element;
-    }
-
     public void setHealth(int health) {
         this.health = health;
     }
@@ -105,5 +99,25 @@ public class Skeleton implements Enemy {
         if (lootTable != null) {
             System.out.println("Loot: " + lootTable.getLootInfo());
         }
+    }
+
+    @Override
+    public Enemy clone() {
+        Skeleton copy = new Skeleton(this.name);
+        copy.health = this.health;
+        copy.damage = this.damage;
+        copy.defense = this.defense;
+        copy.speed = this.speed;
+        copy.abilities = new ArrayList<>();
+
+        for (Ability ability : this.abilities) {
+            copy.abilities.add(ability.clone());
+        }
+
+        if (this.lootTable != null) {
+            copy.lootTable = this.lootTable.clone();
+        }
+
+        return copy;
     }
 }
