@@ -6,59 +6,6 @@ import com.narxoz.rpg.loot.LootTable;
 
 import java.util.*;
 
-/**
- * Example complex boss enemy — THE REASON BUILDER PATTERN EXISTS.
- *
- * ============================================================
- * READ THIS CAREFULLY — THIS IS THE CORE LEARNING MOMENT!
- * ============================================================
- *
- * Look at this constructor. REALLY look at it.
- * Count the parameters. Imagine using it in Main.java.
- * Imagine a teammate trying to understand what each parameter means.
- *
- * This is called the "Telescoping Constructor" anti-pattern.
- * It's the #1 problem that the Builder pattern solves.
- *
- * YOUR MISSION:
- * After studying this horror, you will create an EnemyBuilder
- * that constructs DragonBoss (and other complex enemies)
- * step-by-step, with clear and readable code.
- *
- * Compare:
- *
- *   BEFORE (Telescoping Constructor — current code):
- *   new DragonBoss("Fire Dragon", 50000, 500, 200, 50, "FIRE",
- *       abilities, 30000, 15000, 5000, loot, "AGGRESSIVE",
- *       true, true, 20);
- *   // What does 'true, true, 20' mean? Nobody knows!
- *
- *   AFTER (Builder Pattern — your implementation):
- *   new BossEnemyBuilder()
- *       .setName("Fire Dragon")
- *       .setHealth(50000)
- *       .setDamage(500)
- *       .setDefense(200)
- *       .setSpeed(50)
- *       .setElement("FIRE")
- *       .addAbility(new FlameBreath())
- *       .addAbility(new WingBuffet())
- *       .addPhase(1, 50000)
- *       .addPhase(2, 30000)
- *       .addPhase(3, 15000)
- *       .setLootTable(fireLoot)
- *       .setAI("AGGRESSIVE")
- *       .build();
- *   // Every parameter is labeled! Readable! Maintainable!
- *
- * ============================================================
- * TODO: After implementing your Builder, REFACTOR this class!
- * ============================================================
- * - Remove (or simplify) the telescoping constructor
- * - Make DragonBoss constructable ONLY through a Builder
- * - Make the built DragonBoss IMMUTABLE (no setters!)
- * - The Builder handles all the complexity
- */
 public class DragonBoss implements Enemy {
     protected String name;
     protected int health;

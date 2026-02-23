@@ -1,28 +1,12 @@
 package com.narxoz.rpg.builder;
 
 import com.narxoz.rpg.combat.Ability;
-import com.narxoz.rpg.enemy.Enemy;
 import com.narxoz.rpg.enemy.*;
 import com.narxoz.rpg.factory.EnemyBehavior;
 import com.narxoz.rpg.loot.LootTable;
 
 import java.util.*;
 
-/**
- * Builder for constructing simple enemies (Goblins, Skeletons, Orcs).
- *
- * This builder is designed for straightforward enemies that don't need
- * complex features like multi-phase mechanics or special properties.
- *
- * Mandatory fields (must be set before build()):
- *   - name
- *   - health
- *
- * Optional fields (have sensible defaults):
- *   - damage, defense, speed
- *   - element
- *   - abilities, loot table
- */
 public class BasicEnemyBuilder implements EnemyBuilder {
     protected String name;
     protected int health;
@@ -92,17 +76,12 @@ public class BasicEnemyBuilder implements EnemyBuilder {
         return this;
     }
 
-    /**
-     * Build and validate the Enemy.
-     *
-     * Validates that mandatory fields are set, then creates a Goblin instance.
-     * For simple enemies, we use Goblin as the base implementation.
-     * You could extend this to return Skeleton, Orc, etc. by adding a method
-     * to specify enemy type, or by creating separate builders.
-     *
-     * FACTORY METHOD: This is the factory method! It creates and returns an Enemy.
-     * Subclasses can override this to create different enemy types.
-     */
+    @Override
+    public EnemyBuilder setElement(String element) {
+        this.element = element;
+        return this;
+    }
+    
     @Override
     public Enemy build() {
         Goblin enemy = new Goblin(name);

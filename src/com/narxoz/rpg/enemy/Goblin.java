@@ -6,53 +6,6 @@ import com.narxoz.rpg.loot.LootTable;
 import java.util.List;
 import java.util.ArrayList;
 
-/**
- * Example basic enemy implementation — a simple Goblin.
- *
- * This is provided as a REFERENCE to show enemy structure.
- * Study this implementation, then create more enemies.
- *
- * Notice:
- * - Simple stats (low health, low damage)
- * - Basic constructor (only a few parameters — no Builder needed!)
- * - This is intentionally simple to contrast with DragonBoss.java
- *
- * ============================================================
- * IMPORTANT OBSERVATION:
- * ============================================================
- *
- * A Goblin is simple: name, health, damage, defense — done.
- * A regular constructor works fine here:
- *     new Goblin("Forest Goblin")
- *
- * But look at DragonBoss.java... THAT'S where Builder shines!
- * Simple objects don't need Builder. Complex objects do.
- * Knowing WHEN to use a pattern is as important as knowing HOW.
- *
- * ============================================================
- * PROTOTYPE PATTERN NOTE:
- * ============================================================
- *
- * Goblin is a GREAT candidate for Prototype pattern!
- * Imagine you need 50 goblins for a dungeon. Instead of:
- *     new Goblin("Goblin 1"), new Goblin("Goblin 2"), ...
- *
- * You can:
- *     Goblin template = new Goblin("Goblin");
- *     Enemy goblin1 = template.clone();  // Fast!
- *     Enemy goblin2 = template.clone();  // Fast!
- *
- * And for variants:
- *     Enemy elite = template.clone();
- *     // modify elite's stats to 2x
- *
- * TODO: Implement the clone() method with DEEP COPY.
- * TODO: Create similar basic enemies: Skeleton, Orc, etc.
- * TODO: Consider what needs deep vs shallow copy here.
- *   - Primitive stats (health, damage) → shallow copy is fine
- *   - Ability list → MUST be deep copied!
- *   - LootTable → MUST be deep copied!
- */
 public class Goblin implements Enemy {
     protected String name;
     protected int health;
@@ -116,6 +69,10 @@ public class Goblin implements Enemy {
         return lootTable;
     }
 
+    public void setName(String name) {
+        this.name = name;
+    }
+
     public void setHealth(int health) {
         this.health = health;
     }
@@ -139,15 +96,13 @@ public class Goblin implements Enemy {
     @Override
     public void displayInfo() {
         System.out.println("=== " + name + " (Goblin) ===");
-        System.out.println("Health: " + health + " | Damage: " + damage
-                + " | Defense: " + defense + " | Speed: " + speed);
+        System.out.println("Health: " + health + " | Damage: " + damage + " | Defense: " + defense + " | Speed: " + speed);
+        System.out.println("Element: " + (element != null ? element : "None"));
         System.out.println("Abilities: " + abilities.size() + " ability(ies)");
         for (Ability ability : abilities) {
             System.out.println("  - " + ability.getName() + " (Damage: " + ability.getDamage() + ")");
         }
-        if (lootTable != null) {
-            System.out.println("Loot: " + lootTable.getLootInfo());
-        }
+        System.out.println("Loot: " + lootTable.getLootInfo());
     }
 
     @Override
